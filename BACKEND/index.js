@@ -1,7 +1,8 @@
 const express=require("express");
 const mongoose=require("mongoose");
 const app=express();
-
+const userRouter=require("./routes/userRoute");
+app.use(express.json());
 const mongoDB=async()=>{
     await mongoose.connect("mongodb://localhost:27017/ticket_booking");
 }
@@ -12,6 +13,7 @@ mongoDB()
 .catch((err)=>{
     console.log(err);
 })
+app.use("/api/user/",userRouter)
 app.get("/",(req,res)=>{
     res.send("hello");
 })
