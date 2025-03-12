@@ -13,7 +13,7 @@ mongoDB()
 .catch((err)=>{
     console.log(err);
 })
-app.use("/api/user/",userRouter)
+app.use("/api/user/",userRouter);
 app.get("/",(req,res)=>{
     res.send("hello");
 })
