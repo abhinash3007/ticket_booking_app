@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 
 module.exports.updateProfile = async (req, res) => {
   try {
-    const { firstName, lastName, avatar, age, password } = req.body;
     const allowedFields = [
       "firstName",
       "lastName",
@@ -18,21 +17,18 @@ module.exports.updateProfile = async (req, res) => {
       }
     }
     const user = req.user;
-    if (firstName) {
-      user.firstName = req.body.firstName;
-    }
-    if (lastName) {
-      user.lastName = req.body.lastName;
-    }
-    if (avatar) {
-      user.avatar = req.body.avatar;
-    }
-    if (age) {
-      user.age = req.body.age;
-    }
-    if (password) {
-      user.password = bcrypt.hashSync(req.body.password, 10);
-    }
+    Object.keys(req.body).forEach((key) => {
+      if (req.body[key]) {
+        if (key === "password" &&!validator.isStrongPassword(req.body[key])) {
+          throw new Error("Password is not strong");
+        }
+        if (key === "password") {
+          user[key] = bcrypt.hashSync(req.body[key], 10);
+        } else {
+          user[key] = req.body[key];
+        }
+      }
+    });
     await user.save();
     res.status(200).json(user);
   } catch (err) {
@@ -40,3 +36,13 @@ module.exports.updateProfile = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
+module.exports.getProfile=async(req,res)=>{
+    try{
+        const user=req.user;
+        res.status(200).send(user);
+    }
+    catch(err){
+        console.log(err);
+    }   
+}

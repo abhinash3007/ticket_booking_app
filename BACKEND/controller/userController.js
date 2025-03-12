@@ -46,13 +46,13 @@ module.exports.login=async(req,res)=>{
             res.status(400).send("invalid credentials");
         }
         const comparePass=await bcrypt.compare(password,user.password);
+        const token=jwt.sign({_id:user._id},"Abhinash3007");
+        res.cookie("token",token);
         if(!comparePass){
             res.status(400).send("invalid credentials");
         }else{
-            const token=jwt.sign({_id:user._id},"Abhinash3007");
-            res.cookies("token",token);
+            res.status(200).send("login succesfull");
         }
-        res.status(200).send("login succesfull");
     }catch(err){
         console.log(err);
     }
