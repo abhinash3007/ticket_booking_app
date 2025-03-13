@@ -6,6 +6,10 @@ const ticketSchema=mongoose.Schema({
         required:true,
         ref:User
     },
+    ticketOwner:{
+        type:String,
+        required:true
+    },
     source:{
         type:String,
         required:true
@@ -19,7 +23,7 @@ const ticketSchema=mongoose.Schema({
         required:true
     },
     price:{
-        type:number,
+        type:Number,
         required:true
     },
     status:{

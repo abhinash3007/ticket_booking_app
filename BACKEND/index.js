@@ -3,6 +3,7 @@ const mongoose=require("mongoose");
 const app=express();
 const userRouter=require("./routes/userRoute");
 const profileRouter=require("./routes/profileRouter");
+const ticketRouter=require("./routes/ticketRouter");
 const cookieParser = require("cookie-parser");
 app.use(express.json());
 app.use(cookieParser());
@@ -18,6 +19,7 @@ mongoDB()
 })
 app.use("/api/user/",userRouter);
 app.use("/api/profile",profileRouter);
+app.use("/api/ticket/",ticketRouter);
 app.use("/",(req,res)=>{
     res.send("hello");
 })
