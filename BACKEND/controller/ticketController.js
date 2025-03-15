@@ -25,3 +25,11 @@ module.exports.createTicket = async (req, res) => {
     console.log(err);
   }
 };
+module.exports.getTickets=async(req,res)=>{
+  try{
+    const ticket=await Ticket.find({owner:req.user._id});
+    res.status(201).send(ticket);
+  }catch(err){
+    console.log(err);
+  }
+}
