@@ -15,7 +15,7 @@ module.exports.createTicket = async (req, res) => {
       source,
       destination,
       ticketOwner,
-      price,
+      price, 
       status,
       date,
     });
