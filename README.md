@@ -1,7 +1,7 @@
 ## BACKEND
  ### USER
 
- - lname
+ - lname 
  - name
  - age
  - email
@@ -30,7 +30,6 @@
  - get/api/getProfile
  - post/api/ticketBooking
  - post/api/ticketCancellation
- - get/api/ticketStatus
  - get/api/tickethistory
 
 ### ticket Routes
@@ -40,3 +39,7 @@
  - get/allTicket
  - post/deleteTicket
  - get/ticketStatus
+
+
+
+## FRONTEND

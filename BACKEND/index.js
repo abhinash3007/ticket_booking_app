@@ -1,12 +1,19 @@
 const express=require("express");
 const mongoose=require("mongoose");
 const app=express();
+const cors = require("cors");
 const userRouter=require("./routes/userRoute");
 const profileRouter=require("./routes/profileRouter");
 const ticketRouter=require("./routes/ticketRouter");
 const cookieParser = require("cookie-parser");
+app.use(cors({
+    origin: "http://localhost:5173", // Allow requests from React frontend
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true // Allow cookies if needed
+}));
 app.use(express.json());
 app.use(cookieParser());
+
 const mongoDB=async()=>{
     await mongoose.connect("mongodb://localhost:27017/ticket_booking");
 }

@@ -6,5 +6,5 @@ const router=express.Router();
 router.post("/create",userAuth,createTicket);
 router.get("/getTicket",userAuth,getTickets);
 router.get("/history",userAuth,ticketsHistory);
-router.get("/cancel/:ticketID",userAuth,cancelTicket);
+router.patch("/cancel/:ticketID",userAuth,cancelTicket);
 module.exports=router;
