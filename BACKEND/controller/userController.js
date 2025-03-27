@@ -6,17 +6,17 @@ module.exports.signup= async (req,res)=>{
     const {firstName,lastName,age,gender,email,password,avatar}=req.body;
     try{
         if(!email || !password || !firstName || !lastName || !gender || !age ){
-            res.json({message:"please enter full details"});
+            return res.json({message:"please enter full details"});
         }
         const userEmail=await User.findOne({email:email});
         if(userEmail){
-            res.json({message:"email already exits"});
+            return res.json({message:"email already exits"});
         }
         if(!validator.isEmail(email)){
-            res.send("email not correct");
+            return res.send("email not correct");
         }
         if(!validator.isStrongPassword(password)){
-            res.send("Password not strong");
+            return res.send("Password not strong");
         }
         const hashedPass=await bcrypt.hash(password,10);
         const user=new User({
@@ -29,8 +29,10 @@ module.exports.signup= async (req,res)=>{
             avatar
         });
         await user.save();
-        res.send(user);
+        res.status(201).json({ message: "User registered successfully", user });
+
     }catch(err){
+        return res.status(500).json({ error: "Internal Server Error" });
         console.log(err);
     }
 }
